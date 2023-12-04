@@ -5,6 +5,8 @@
 This is a demonstration of signals in Unix-like systems, when a process
 receiving a signal has its own subprocesses.
 
+A C compiler and `make` are needed.
+
 ## License
 
 The code in this repository is licensed under
@@ -14,10 +16,27 @@ license. See [**`LICENSE`**](LICENSE).
 
 ## Usage
 
-A C compiler and `make` are needed.
+Run:
 
-Run `./run-experiment`, or experiment interactively by running `./sig` directly
-(you may need to kill the subprocesses yourself).
+```sh
+./run-experiment
+```
+
+*Or* experiment interactively by building `sig` and running it directly (you
+may need to kill the subprocesses yourself).
+
+The `run-experiment` script takes care of building the `sig` program from
+`sig.c` if this has not been done. You can also build `sig` by running:
+
+```sh
+make
+```
+
+Then to run `sig`:
+
+```sh
+./sig
+```
 
 The `sig` command accepts a signal number as an argument. For example, to make
 it use `SIGKILL` instead of its default of `SIGTERM`, run:
