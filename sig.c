@@ -40,8 +40,8 @@ noreturn static void status_loop(const char *name)
         
         // A terminal would usually be line buffered, which is ideal because it
         // makes it likely a single write operation will be performed. Setting
-        // line buffering with setvbuf may not work, because it may only be
-        // supported for terminals. So flush explicitly after each print.
+        // line buffering with setvbuf may not always work, because it may only
+        // be supported for terminals. So flush explicitly after each print.
         fflush(stdout);
 
         sleep(k_interval_status);
