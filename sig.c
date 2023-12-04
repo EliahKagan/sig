@@ -10,7 +10,13 @@
 #include <unistd.h>
 
 enum interval {
+    // Offset to make it less likely processes' messages will clash.
+    k_interval_offset = 1,
+
+    // How often processes with nothing else planned print their status.
     k_interval_status = 3,
+
+    // How long the parent waits before sending a signal to the child.
     k_interval_before_signal = 10,
 };
 
@@ -77,6 +83,14 @@ int main(int argc, char **argv)
         pid_t grandchild = fork();
         if (grandchild < 0) die("Can't fork grandchild");
 
-        status_loop(grandchild > 0 ? "CHILD" : "Grandchild");
+        if (grandchild > 0) {
+            // This is (still) the child.
+            sleep(k_interval_offset);
+            status_loop("CHILD");
+        } else {
+            // This is the grandchild.
+            sleep(k_interval_offset * 2);
+            status_loop("Grandchild");
+        }
     }
 }
