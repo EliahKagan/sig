@@ -37,6 +37,13 @@ noreturn static void status_loop(const char *name)
 
     for (; ; ) {
         printf("%s process (PID %d) is running.\n", name, (int)pid);
+        
+        // A terminal would usually be line buffered, which is ideal because it
+        // makes it likely a single write operation will be performed. Setting
+        // line buffering with setvbuf may not work, because it may only be
+        // supported for terminals. So flush explicitly after each print.
+        fflush(stdout);
+
         sleep(k_interval_status);
     }
 }
@@ -45,6 +52,7 @@ int main(int argc, char **argv)
 {
     int sig = parse_signal(argc, argv);
     printf("Testing with signal %d.\n", sig);
+    fflush(stdout); // In case it's not a terminal. See status_loop.
 
     pid_t child = fork();
     if (child < 0) die("can't fork child");
