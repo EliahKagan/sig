@@ -3,6 +3,7 @@
 #define _POSIX_C_SOURCE 1
 
 #include <signal.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdnoreturn.h>
@@ -26,6 +27,24 @@ noreturn static int die(const char *prefix)
     exit(EXIT_FAILURE);
 }
 
+static void lprintf(const char *restrict format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+
+    // A terminal would usually be line buffered, which is ideal because, for
+    // short messages, a single write operation is usually performed. This
+    // makes it less likely for each individual message to appear whole, rather
+    // than having output of another process mixed in. When stdout isn't a
+    // terminal, it is usually fully buffered. Setting line buffering with
+    // setvbuf may not work, as non-terminals need not support it. So flush
+    // explicitly after each print. (Actual synchronization would complicate
+    // and obscure the demonstration.)
+    fflush(stdout);
+}
+
 static int parse_signal(int argc, char **argv)
 {
     if (argc > 2) abort();
@@ -44,14 +63,7 @@ noreturn static void status_loop(const char *name)
     pid_t pid = getpid();
 
     for (; ; ) {
-        printf("%s process (PID %d) is running.\n", name, (int)pid);
-
-        // A terminal would usually be line buffered, which is ideal because it
-        // makes it likely a single write operation will be performed. Setting
-        // line buffering with setvbuf may not always work, because it may only
-        // be supported for terminals. So flush explicitly after each print.
-        fflush(stdout);
-
+        lprintf("%s process (PID %d) is running.\n", name, (int)pid);
         sleep(k_interval_status);
     }
 }
@@ -59,8 +71,7 @@ noreturn static void status_loop(const char *name)
 int main(int argc, char **argv)
 {
     int sig = parse_signal(argc, argv);
-    printf("Testing with signal %d.\n", sig);
-    fflush(stdout); // In case it's not a terminal. See status_loop.
+    lprintf("Testing with signal %d.\n", sig);
 
     pid_t parent = getpid();
     pid_t child = fork();
@@ -68,13 +79,13 @@ int main(int argc, char **argv)
 
     if (child > 0) {
         // This is the parent.
-        printf("Parent (%d) sleeping %d s before sending signal %d"
-               " to child (%d).\n",
-               (int)parent, k_interval_before_signal, sig, (int)child);
+        lprintf("Parent (%d) sleeping %d s before sending signal %d"
+                " to child (%d).\n",
+                (int)parent, k_interval_before_signal, sig, (int)child);
         sleep(k_interval_before_signal);
 
-        printf("Parent (%d) sending signal %d to child (%d).\n",
-               (int)parent, sig, (int)child);
+        lprintf("Parent (%d) sending signal %d to child (%d).\n",
+                (int)parent, sig, (int)child);
         if (kill(child, sig) != 0) die("Can't send signal to child");
 
         status_loop("Parent");
