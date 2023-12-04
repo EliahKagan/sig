@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Build "sig" if necessary. Bail if the build fails.
+make || exit
+
+# Run "sig" in its own process group, wait a bit, then interrupt the group.
+set -m
+./sig &
+pid="$!"
+printf '%s: note: "parent" has PID %d\n' "$0" "$pid" >&2
+sleep 30
+kill -s INT -- "-$pid"  # Simulate effect of Ctrl+C.
