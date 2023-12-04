@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdnoreturn.h>
-#include <unistd.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 enum interval {
     k_interval_status = 3,
@@ -55,17 +55,22 @@ int main(int argc, char **argv)
     fflush(stdout); // In case it's not a terminal. See status_loop.
 
     pid_t child = fork();
-    if (child < 0) die("can't fork child");
+    if (child < 0) die("Can't fork child");
 
     if (child > 0) {
         // This is the parent.
+        printf("Parent (%d) sleeping %d s before sending signal %d"
+               " to child (%d).\n",
+               getpid(), k_interval_before_signal, sig, child);
+
         sleep(k_interval_before_signal);
-        kill(child, sig);
+        if (kill(child, sig) != 0) die("Can't send signal to child");
+
         status_loop("Parent");
     } else {
         // This is the child.
         pid_t grandchild = fork();
-        if (grandchild < 0) die("can't fork grandchild");
+        if (grandchild < 0) die("Can't fork grandchild");
 
         status_loop(grandchild > 0 ? "CHILD" : "Grandchild");
     }
