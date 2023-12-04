@@ -43,6 +43,10 @@ noreturn static void status_loop(const char *name)
 
 int main(int argc, char **argv)
 {
+    // To avoid the complexity of synchronizing access to stdout to avoid
+    // intermixing separate processes' messages, I assume line buffering.
+    // (This assumption typically holds only for terminals!) I thus omit:
+    //
     // setbuf(stdout, NULL);
 
     int sig = parse_signal(argc, argv);
