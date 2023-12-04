@@ -67,6 +67,6 @@ int main(int argc, char **argv)
         pid_t grandchild = fork();
         if (grandchild < 0) die("can't fork grandchild");
 
-        status_loop(grandchild > 0 ? "Child" : "Grandchild");
+        status_loop(grandchild > 0 ? "CHILD" : "Grandchild");
     }
 }
