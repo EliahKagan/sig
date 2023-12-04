@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 enum interval {
-    // Offset to make it less likely processes' messages will clash.
+    // Offset to improve readability and make ordering more stable.
     k_interval_offset = 1,
 
     // How often processes with nothing else planned print their status.
