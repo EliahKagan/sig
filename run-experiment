@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: 0BSD
+# This script builds "sig" if necessary, runs the experiment, and cleans up.
 
 # Build "sig" if necessary. Bail if the build fails.
 make || exit

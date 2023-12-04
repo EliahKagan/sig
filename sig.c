@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: 0BSD
 // Unix signals demonstration on a subprocess with its own subprocess.
 
 #define _POSIX_C_SOURCE 1

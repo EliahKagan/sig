@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: 0BSD
 # This script runs make to build with clang-17, and enabling more warnings.
+# This is a convenience for development. For the experiment, just use "make".
 set -eux
 CC=clang-17 CFLAGS='-Weverything -Wno-declaration-after-statement' make "$@"
