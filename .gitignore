@@ -1,6 +1,3 @@
-# Cached Python bytecode
-__pycache__/
-
 # Compiled binaries
 sig
 sig.o
