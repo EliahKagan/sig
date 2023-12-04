@@ -43,11 +43,11 @@ noreturn static void status_loop(const char *name)
 
 int main(int argc, char **argv)
 {
-    // To avoid the complexity of synchronizing access to stdout to avoid
-    // intermixing separate processes' messages, I assume line buffering.
-    // (This assumption typically holds only for terminals!) I thus omit:
-    //
-    // setbuf(stdout, NULL);
+    // I want to prevent intermixing of messages from different processes on
+    // stdout, but actually synchronizing the writes is no good, because the
+    // complexity of doing so would make this demonstration confusing. Setting
+    // stdout to be line buffered even when not a terminal may be sufficient.
+	setvbuf(stdout, NULL, _IOLBF, 0);
 
     int sig = parse_signal(argc, argv);
     printf("Testing with signal %d.\n", sig);
