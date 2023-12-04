@@ -25,3 +25,9 @@ it use `SIGKILL` instead of its default of `SIGTERM`, run:
 ```sh
 ./sig 9
 ```
+
+Or to have the `run-experiment` script call `sig` that way:
+
+```sh
+./run-experiment 9
+```
