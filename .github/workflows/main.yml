@@ -33,7 +33,12 @@ jobs:
       - name: Run experiment on ${{ matrix.os-short }}
         run: ./run-experiment
 
-      - name: Interact with ${{ matrix.os-short }} via tmate
+      # FIXME: Build the name in a better way.
+      - name: |
+          ${{ format('Interact with {0} via tmate{1}',
+                     matrix.os-short,
+                     (github.event_name != 'workflow_dispatch' && ' (workflow_dispatch only)' || ''))
+          }}
         if: (success() || failure()) && github.event_name == 'workflow_dispatch' && inputs.debug
         uses: mxschmitt/action-tmate@v3
         with:
