@@ -15,22 +15,12 @@ jobs:
   main:
     strategy:
       matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-        manual:
-          - ${{ github.event_name == 'workflow_dispatch' }}
+        os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
             os-short: Ubuntu
           - os: macos-latest
             os-short: macOS
-          - manual: 'false'
-            tmate-note: ' (workflow_dispatch only)'
-          - manual: 'true'
-            tmate-note: ''
-
-    # name: main (${{ matrix.os }})
 
     continue-on-error: true
 
@@ -43,7 +33,8 @@ jobs:
       - name: Run experiment on ${{ matrix.os-short }}
         run: ./run-experiment
 
-      - name: Interact with ${{ matrix.os-short }} via tmate${{ matrix.tmate-note }}
+      # FIXME: Build the name in a better way.
+      - name: Interact with ${{ matrix.os-short }} via tmate (workflow_dispatch only)
         if: (success() || failure()) && github.event_name == 'workflow_dispatch' && inputs.debug
         uses: mxschmitt/action-tmate@v3
         with:
