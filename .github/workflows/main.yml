@@ -1,0 +1,40 @@
+name: Run experiment
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: Interact via tmate
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            os-short: Ubuntu
+          - os: macos-latest
+            os-short: macOS
+
+    continue-on-error: true
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run experiment on ${{ matrix.os-short }}
+        run: ./run-experiment
+
+      - name: Interact with ${{ matrix.os-short }} via tmate
+        if: (success() || failure()) && github.event_name == 'workflow_dispatch' && inputs.debug
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
