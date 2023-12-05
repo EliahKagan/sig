@@ -1,5 +1,7 @@
 <!-- SPDX-License-Identifier: 0BSD -->
 
+[![Run experiment](https://github.com/EliahKagan/sig/actions/workflows/main.yml/badge.svg)](https://github.com/EliahKagan/sig/actions/workflows/main.yml)
+
 # sig - Unix signals demonstration
 
 This is a demonstration of signals in Unix-like systems, when a process
