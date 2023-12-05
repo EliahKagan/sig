@@ -7,7 +7,7 @@
 [![Open in GitHub Codespaces](https://img.shields.io/badge/GitHub_Codespaces-Click_to_Open-blue)](https://codespaces.new/EliahKagan/sig)
 <!-- markdownlint-restore -->
 
-# sig - Unix signals demonstration
+# sig - Unix signals demonstration with subprocesses
 
 This is a demonstration of signals in Unix-like systems, when a process
 receiving a signal has its own subprocesses.
