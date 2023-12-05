@@ -11,6 +11,7 @@
                 "mads-hartmann.bash-ide-vscode",
                 "mhutchie.git-graph",
                 "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.makefile-tools",
                 "timonwong.shellcheck"
             ],
             "settings": {
