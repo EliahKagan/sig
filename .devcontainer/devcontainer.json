@@ -1,0 +1,23 @@
+{
+    "name": "sig (universal image)",
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bierner.markdown-preview-github-styles",
+                "eamodio.gitlens",
+                "GitHub.vscode-github-actions",
+                "GitHub.vscode-pull-request-github",
+                "mads-hartmann.bash-ide-vscode",
+                "mhutchie.git-graph",
+                "ms-vscode.cpptools-extension-pack",
+                "timonwong.shellcheck"
+            ],
+            "settings": {
+                "gitlens.showWelcomeOnInstall": false,
+                "gitlens.showWhatsNewAfterUpgrades": false
+            }
+        }
+    },
+    "onCreateCommand": [".devcontainer/onCreate"]
+}
