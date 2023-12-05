@@ -1,8 +1,11 @@
 <!-- SPDX-License-Identifier: 0BSD -->
 
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable first-line-h1 -->
 [![GitHub license](https://img.shields.io/github/license/EliahKagan/sig)](https://github.com/EliahKagan/sig/blob/main/LICENSE)
 [![Run experiment](https://github.com/EliahKagan/sig/actions/workflows/main.yml/badge.svg)](https://github.com/EliahKagan/sig/actions/workflows/main.yml)
 [![Open in GitHub Codespaces](https://img.shields.io/badge/GitHub_Codespaces-Click_to_Open-blue)](https://codespaces.new/EliahKagan/sig)
+<!-- markdownlint-restore -->
 
 # sig - Unix signals demonstration
 
