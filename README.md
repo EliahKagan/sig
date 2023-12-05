@@ -12,7 +12,9 @@ A C compiler and `make` are needed.
 The code in this repository is licensed under
 [0BSD](https://spdx.org/licenses/0BSD.html), a
 [“public-domain equivalent”](https://en.wikipedia.org/wiki/Public-domain-equivalent_license)
-license. See [**`LICENSE`**](LICENSE).
+license.
+
+See [**`LICENSE`**](LICENSE).
 
 ## Usage
 
