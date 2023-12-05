@@ -1,0 +1,10 @@
+#!/bin/sh
+# SPDX-License-Identifier: 0BSD
+
+set -eu
+
+# Customize git configuration for shell prompt.
+ln -s -- "$(realpath .devcontainer/git_prompt_activate.bash)" \
+    ~/.git_prompt_activate.bash
+printf '\n%s\n' '. ~/.git_prompt_activate.bash' >>~/.bashrc
+git config --global devcontainers-theme.hide-status 1

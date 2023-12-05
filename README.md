@@ -1,6 +1,8 @@
 <!-- SPDX-License-Identifier: 0BSD -->
 
+[![GitHub license](https://img.shields.io/github/license/EliahKagan/sig)](https://github.com/EliahKagan/sig/blob/main/LICENSE)
 [![Run experiment](https://github.com/EliahKagan/sig/actions/workflows/main.yml/badge.svg)](https://github.com/EliahKagan/sig/actions/workflows/main.yml)
+[![Open in GitHub Codespaces](https://img.shields.io/badge/GitHub_Codespaces-Click_to_Open-blue)](https://codespaces.new/EliahKagan/sig)
 
 # sig - Unix signals demonstration
 
